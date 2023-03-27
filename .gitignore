@@ -1,0 +1,9 @@
+**/数据/
+**/common_utils/
+**.ipynb
+*.pyc/
+.idea/
+**/__pycache__/
+**/debug/
+**.geojson
+db_conn.py
