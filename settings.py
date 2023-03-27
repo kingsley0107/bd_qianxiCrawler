@@ -7,3 +7,10 @@ Created on 27 Mar 2:30 PM
 
 _description_: startup-script
 """
+
+PROXY_API_HOST = ""
+
+scale = 'city'
+city = '深圳市'
+direction = 'move_in'
+date = '20230325'
