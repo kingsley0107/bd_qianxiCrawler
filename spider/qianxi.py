@@ -15,10 +15,11 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 # from middlewares.proxy import gen_new_ip
 import re
-from cities.ChineseAdminiDivisionsDict import get_city_code,get_province_code
+from cities.ChineseAdminiDivisionsDict import get_city_code, get_province_code
+import time
 
 
-def crawl_body(url,params):
+def crawl_body(url, params, type='default'):
     pattern = r"^cb\((.*)\)"
     retry_times = 5
     retry_delay = 1
@@ -31,34 +32,88 @@ def crawl_body(url,params):
     response = session.get(url, params=params)
     if response.status_code == 200:
         data = json.loads(re.search(pattern, response.text.strip()).group(1))
-        return data['data']['list']
+        if type == 'default':
+            return data['data']['list']
+        elif type == 'work':
+            return data['data']['list']['work']
+        elif type == 'entertainment':
+            return data['data']['list']['entertainment']
     else:
         print("request failed...")
-def crawl_cityrank(city,scale,direction,date):
+
+
+def crawl_cityrank(city, scale, direction, date):
     base_url = "https://huiyan.baidu.com/migration/cityrank.jsonp"
     params = {
         "dt": scale,
         "id": get_city_code(city),
         "type": direction,
-        'date':date
+        'date': date
     }
-    data = crawl_body(base_url,params,city,direction,'city')
-    result = pd.DataFrame.from_dict(data).rename(columns = {'value':'percentage'})
+    data = crawl_body(base_url, params)
+    result = pd.DataFrame.from_dict(data).rename(
+        columns={'value': 'percentage'})
     return result
 
-def crawl_historycurve(city,scale,direction):
+
+def crawl_historycurve(city, scale, direction):
     base_url = "https://huiyan.baidu.com/migration/historycurve.jsonp"
     params = {
         "dt": scale,
         "id": get_city_code(city),
         "type": direction
     }
-    data = crawl_body(base_url,params,city,direction,'city')
-    result = pd.DataFrame.from_dict(data, orient='index', columns=[f'{direction}_values'])
+    data = crawl_body(base_url, params)
+    result = pd.DataFrame.from_dict(
+        data, orient='index', columns=[f'{direction}_values']).sort_index()
     return result
 
-def calculate_index(history_curve,city_rank,date):
+
+def calculate_index(history_curve, city_rank, date):
     comparable_curve_index = history_curve[history_curve.columns[0]].loc[date]
     curve_index = city_rank.copy()
     curve_index['迁徙指数'] = curve_index['percentage'] * comparable_curve_index
-    return curve_index.drop(['percentage'],axis = 1)
+    return curve_index.drop(['percentage'], axis=1)
+
+
+def crawl_internalflow(city):
+    base_url = "https://huiyan.baidu.com/migration/internalflowhistory.jsonp"
+    params = {
+        "dt": "city",
+        "id": get_city_code(city),
+        "date": time.strftime("%Y%m%d", time.localtime())
+    }
+    data = crawl_body(base_url, params)
+    result = pd.DataFrame.from_dict(
+        data, orient='index', columns=[f'{city}_internalflow_values']).sort_index()
+    return result
+
+
+def crawl_work(city):
+    base_url = "https://huiyan.baidu.com/migration/odsemantic.jsonp"
+    params = {
+        "dt": "city",
+        "id": get_city_code(city),
+        'date': time.strftime("%Y%m%d", time.localtime())
+    }
+    data = crawl_body(base_url, params, type='work')
+    result = pd.DataFrame.from_dict(data, orient='index', columns=[
+                                    f'OD_work']).sort_index()
+    return result
+
+
+def crawl_entertainment(city):
+    base_url = "https://huiyan.baidu.com/migration/odsemantic.jsonp"
+    params = {
+        "dt": "city",
+        "id": get_city_code(city),
+        'date': time.strftime("%Y%m%d", time.localtime())
+    }
+    data = crawl_body(base_url, params, type='entertainment')
+    result = pd.DataFrame.from_dict(data, orient='index', columns=[
+                                    f'OD_entertainment']).sort_index()
+    return result
+
+
+if __name__ == '__main__':
+    pass

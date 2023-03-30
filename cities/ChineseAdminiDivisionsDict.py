@@ -73,4 +73,4 @@ def get_province_code(province_name):
 
 
 if __name__ == '__main__':
-    print(get_province_code('广东'))
+    print(get_city_code('广州市'))
