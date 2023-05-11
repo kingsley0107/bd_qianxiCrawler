@@ -1,31 +1,41 @@
+ENGLISH   [中文版](./zh-cn.md)
+
 # bd_qianxiCrawler
 
-## 百度迁徙可爬取的所有数据:
-- 🏙百度迁徙数据爬取🏙
-- 🏙城市总体流动迁徙指数🏙
-- 🏙城市跨城迁入迁出指数🏙
-- 🏙与某城市的迁入迁出情况🏙
-- 🏙城市内部职住流动指数🏙
-- 🏙城市内部休闲娱乐流动指数🏙
-- 🏙城市内部总体出行强度🏙
-- ⌚ 精确到城市、具体日期⌚
-- 💻时序分析,城市出行,流量预测💻
+## All retrievable data from Baidu Migration:
+- 🏙 Baidu migration data crawling 🏙
+- 🏙 Overall city migration index 🏙
+- 🏙 Inter-city migration index 🏙
+- 🏙 Migration in and out of a specific city 🏙
+- 🏙 Intra-city commuting index 🏙
+- 🏙 Intra-city leisure and entertainment index 🏙
+- 🏙 Overall travel intensity within a city 🏙
+- ⌚ Accurate to city and specific date ⌚
+- 💻 Time series analysis, city travel, traffic prediction 💻
 
-## 当前功能 03.30 2023
-- 爬取特定城市整体历史迁入迁出指数(20190112-now)(城市间可横向比较)
-- 爬取城市迁入迁出排名及比例(eg. 20230307 深圳-北京 0.37)(城市间不可横向比较)
-- 计算城市迁入迁出指数(eg. 20230307 深圳-北京 11.23 城市间可横向比较)(上述两项数据计算结果)
+## Current features
+- Crawling historical migration in and out index of specific cities (20190112-now) (Comparison between cities is possible)
 
-- 爬取特定城市历史城内出行强度指数(20200104-now)
-- 爬取特定城市历史上班出行强度指数(20210122-now)
-- 爬取特定城市历史休闲娱乐出行强度指数(20210122-now)
+- Crawling city migration in and out rankings and proportions (e.g., 20230307 Shenzhen-Beijing 0.37) (Comparison between cities is not possible)
 
-## 使用说明 (Version 03.30 2023):
-- 配置settings.py修改:
-  - 数据尺度: 'city' 
-  - 城市|省份名称: '深圳市' (取自./cities/ChineseAdminiDivisionsDict.py)
-  - 城市|省份代码: 通过get_city_code|get_province_code获取 (可直接参考ChineseAdminiDivisionsDict.py)
-  - 迁徙方向: 'move_in' | 'move_out' (必须二选一)
-  - 目标研究日期: '20230326' (用于计算当日城际流动关系,不影响特定城市历史迁徙指数)
+- Calculating city migration in and out index (e.g., 20230307 Shenzhen-Beijing 11.23, comparison between cities is possible) (Calculation based on the above two data)
 
-- 运行main.py,数据自动导出data文件夹中.任何问题请联系kingsleyl0107@gmail.com
+- Crawling historical intra-city travel intensity index of specific cities (20200104-now)
+
+- Crawling historical commuting travel intensity index of specific cities (20210122-now)
+
+- Crawling historical leisure and entertainment travel intensity index of specific cities (20210122-now)
+
+## Usage instructions:
+- Modify settings in settings.py:
+
+  - Data scale: 'city'
+  - City/Province name: 'Shenzhen' (taken from ./cities/ChineseAdminiDivisionsDict.py)
+  - City/Province code: Obtain through get_city_code | get_province_code (can be directly referenced from ChineseAdminiDivisionsDict.py)
+  - Migration direction: 'move_in' | 'move_out' (must choose one)
+  - Target research date: '20230326' (used for calculating inter-city migration on a specific day, does not affect historical migration index of specific cities)
+- Run main.py, data will be automatically exported to the data folder. 
+
+## Concat:
+
+For any questions, please contact kingsleyl0107@gmail.com
