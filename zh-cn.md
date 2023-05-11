@@ -2,6 +2,7 @@
 
 # bd_qianxiCrawler
 
+![pics](./pics/pics.jpg)
 ## 百度迁徙可爬取的所有数据:
 - 🏙百度迁徙数据爬取🏙
 - 🏙城市总体流动迁徙指数🏙
