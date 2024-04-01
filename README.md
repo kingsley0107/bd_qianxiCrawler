@@ -1,8 +1,11 @@
-ENGLISH   [中文版](./zh-cn.md)
+ENGLISH [中文版](./zh-cn.md)
 
 # bd_qianxiCrawler
+
 ![pics](./pics/pics.jpg)
+
 ## All retrievable data from Baidu Migration:
+
 - 🏙 Baidu migration data crawling 🏙
 - 🏙 Overall city migration index 🏙
 - 🏙 Inter-city migration index 🏙
@@ -14,6 +17,7 @@ ENGLISH   [中文版](./zh-cn.md)
 - 💻 Time series analysis, city travel, traffic prediction 💻
 
 ## Current features
+
 - Crawling historical migration in and out index of specific cities (20190112-now) (Comparison between cities is possible)
 
 - Crawling city migration in and out rankings and proportions (e.g., 20230307 Shenzhen-Beijing 0.37) (Comparison between cities is not possible)
@@ -27,6 +31,9 @@ ENGLISH   [中文版](./zh-cn.md)
 - Crawling historical leisure and entertainment travel intensity index of specific cities (20210122-now)
 
 ## Usage instructions:
+
+> 2024.04.01update: only specific period available through the platform, sorry to hear that.
+
 - Modify settings in settings.py:
 
   - Data scale: 'city'
@@ -34,7 +41,8 @@ ENGLISH   [中文版](./zh-cn.md)
   - City/Province code: Obtain through get_city_code | get_province_code (can be directly referenced from ChineseAdminiDivisionsDict.py)
   - Migration direction: 'move_in' | 'move_out' (must choose one)
   - Target research date: '20230326' (used for calculating inter-city migration on a specific day, does not affect historical migration index of specific cities)
-- Run main.py, data will be automatically exported to the data folder. 
+
+- Run main.py, data will be automatically exported to the data folder.
 
 ## Concat:
 

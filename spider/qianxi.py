@@ -44,12 +44,11 @@ def crawl_body(url, params, type='default'):
 
 def crawl_cityrank(city, scale, direction, date):
     base_url = "https://huiyan.baidu.com/migration/cityrank.jsonp"
-    params = {
-        "dt": scale,
-        "id": get_city_code(city),
-        "type": direction,
-        'date': date
-    }
+    if scale == 'province':
+        id = get_province_code(city)
+    elif scale == 'city':
+        id = get_city_code(city)
+    params = {"dt": scale, "id": id, "type": direction, 'date': date}
     data = crawl_body(base_url, params)
     result = pd.DataFrame.from_dict(data).rename(
         columns={'value': 'percentage'})
@@ -58,14 +57,16 @@ def crawl_cityrank(city, scale, direction, date):
 
 def crawl_historycurve(city, scale, direction):
     base_url = "https://huiyan.baidu.com/migration/historycurve.jsonp"
-    params = {
-        "dt": scale,
-        "id": get_city_code(city),
-        "type": direction
-    }
+    if scale == 'province':
+        id = get_province_code(city)
+    elif scale == 'city':
+        id = get_city_code(city)
+    params = {"dt": scale, "id": id, "type": direction}
     data = crawl_body(base_url, params)
-    result = pd.DataFrame.from_dict(
-        data, orient='index', columns=[f'{direction}_values']).sort_index()
+    result = pd.DataFrame.from_dict(data,
+                                    orient='index',
+                                    columns=[f'{direction}_values'
+                                             ]).sort_index()
     return result
 
 
@@ -84,8 +85,10 @@ def crawl_internalflow(city):
         "date": time.strftime("%Y%m%d", time.localtime())
     }
     data = crawl_body(base_url, params)
-    result = pd.DataFrame.from_dict(
-        data, orient='index', columns=[f'{city}_internalflow_values']).sort_index()
+    result = pd.DataFrame.from_dict(data,
+                                    orient='index',
+                                    columns=[f'{city}_internalflow_values'
+                                             ]).sort_index()
     return result
 
 
@@ -97,8 +100,8 @@ def crawl_work(city):
         'date': time.strftime("%Y%m%d", time.localtime())
     }
     data = crawl_body(base_url, params, type='work')
-    result = pd.DataFrame.from_dict(data, orient='index', columns=[
-                                    f'OD_work']).sort_index()
+    result = pd.DataFrame.from_dict(data, orient='index',
+                                    columns=[f'OD_work']).sort_index()
     return result
 
 
@@ -110,8 +113,10 @@ def crawl_entertainment(city):
         'date': time.strftime("%Y%m%d", time.localtime())
     }
     data = crawl_body(base_url, params, type='entertainment')
-    result = pd.DataFrame.from_dict(data, orient='index', columns=[
-                                    f'OD_entertainment']).sort_index()
+    result = pd.DataFrame.from_dict(data,
+                                    orient='index',
+                                    columns=[f'OD_entertainment'
+                                             ]).sort_index()
     return result
 
 

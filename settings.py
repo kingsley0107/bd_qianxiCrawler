@@ -9,15 +9,14 @@ _description_: startup-script
 """
 
 import os
-PROXY_API_HOST = ""
 
+PROXY_API_HOST = ""
 
 scale = 'city'
 city = '广州市'
 direction = 'move_out'
-date = '20230325'
+date = '20231113'
 FILE_ROOT_PATH = r'./data'
-
 
 if not os.path.exists(FILE_ROOT_PATH):
     os.makedirs(FILE_ROOT_PATH)
@@ -38,10 +37,8 @@ if not os.path.exists(rf'{FILE_ROOT_PATH}/城市当日迁徙指数'):
 if not os.path.exists(rf'{FILE_ROOT_PATH}/城内出行强度指数'):
     os.makedirs(rf'{FILE_ROOT_PATH}/城内出行强度指数')
 
-
 if not os.path.exists(rf'{FILE_ROOT_PATH}/城市就餐休闲出行强度指数'):
     os.makedirs(rf'{FILE_ROOT_PATH}/城市就餐休闲出行强度指数')
-
 
 if not os.path.exists(rf'{FILE_ROOT_PATH}/城市上班出行强度指数'):
     os.makedirs(rf'{FILE_ROOT_PATH}/城市上班出行强度指数')
