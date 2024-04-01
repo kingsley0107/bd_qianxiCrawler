@@ -4,6 +4,8 @@ ENGLISH [中文版](./zh-cn.md)
 
 ![pics](./pics/pics.jpg)
 
+> 2024.04.01update: only specific period available through the platform, sorry to hear that.
+
 ## All retrievable data from Baidu Migration:
 
 - 🏙 Baidu migration data crawling 🏙
@@ -31,8 +33,6 @@ ENGLISH [中文版](./zh-cn.md)
 - Crawling historical leisure and entertainment travel intensity index of specific cities (20210122-now)
 
 ## Usage instructions:
-
-> 2024.04.01update: only specific period available through the platform, sorry to hear that.
 
 - Modify settings in settings.py:
 
